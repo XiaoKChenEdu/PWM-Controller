@@ -2,7 +2,17 @@
 #define DC_MOTOR_H
 
 #include "Motor.h"
-#include <Arduino.h>
+
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    #include <algorithm>
+    
+    // Arduino-like functions for Raspberry Pi
+    inline float constrain(float x, float a, float b) {
+        return std::max(a, std::min(x, b));
+    }
+#endif
 
 class DCMotor : public Motor {
 private:
@@ -19,7 +29,9 @@ public:
         
         pwmBackend->begin();
         pwmBackend->setPWMFreq(1000);  // 1kHz for DC motors
-        pinMode(pin, OUTPUT);
+        #ifdef ARDUINO
+            pinMode(pin, OUTPUT);
+        #endif
         stop();
     }
 

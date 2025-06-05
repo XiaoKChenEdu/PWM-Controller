@@ -1,12 +1,20 @@
 #ifndef PWM_BACKEND_H
 #define PWM_BACKEND_H
 
-#include <Arduino.h>
+// Conditional includes based on platform
+#ifdef ARDUINO
+    #include <Arduino.h>
+#else
+    // For Raspberry Pi and other platforms
+    #include <cstdint>
+    #include <cstddef>
+#endif
 
 // Enum for PWM backend types
 enum class PWMBackendType {
     ONBOARD_PWM,
     PCA9685_PWM,
+    RASPBERRY_PI_PWM,
     OTHER
 };
 

@@ -13,7 +13,7 @@ protected:
 
 public:
     Motor(int pwmPin, PWMBackend* backend, float minDuty = 0.0f, float maxDuty = 100.0f)
-        : pin(pwmPin), pwmBackend(backend), minDutyCycle(minDuty), maxDutyCycle(maxDuty), currentSpeed(0.0f) {}
+        : minDutyCycle(minDuty), maxDutyCycle(maxDuty), currentSpeed(0.0f), pin(pwmPin), pwmBackend(backend) {}
     
     virtual ~Motor() = default;
 

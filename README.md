@@ -7,31 +7,36 @@ PWM_Controller/
 ├── src/                          # Library source files
 │   ├── Motor.h                   # Base motor class
 │   ├── PWMBackend.h              # PWM backend interface
-│   ├── OnboardPWM.h              # Arduino native PWM backend
-│   ├── PCA9685LibraryPWM.h       # PCA9685 I2C PWM backend
+│   ├── RaspberryPiPWM.h          # Raspberry Pi PWM backend (NEW)
 │   ├── ServoMotor.h              # Servo motor implementation
 │   └── DCMotor.h                 # DC motor implementation
-└── examples/                     # Example sketches
-    ├── OnboardServo/             # Arduino PWM servo control
-    ├── OnboardDC/                # Arduino PWM DC motor control
-    ├── PCA9685Servo/             # PCA9685 servo control
-    └── PCA9685DC/                # PCA9685 DC motor control
+├── examples/                     # Example sketches/programs
+│   ├── OnboardServo/             # Arduino PWM servo control
+│   ├── OnboardDC/                # Arduino PWM DC motor control
+│   ├── PCA9685Servo/             # Arduino PCA9685 servo control
+│   ├── PCA9685DC/                # Arduino PCA9685 DC motor control
+│   ├── RaspberryPiServo/         # Raspberry Pi hardware PWM servo control
+│   ├── RaspberryPiDC/            # Raspberry Pi hardware PWM DC motor control
+│   ├── RaspberryPiPCA9685Servo/  # Raspberry Pi PCA9685 servo control (NEW)
+│   └── RaspberryPiPCA9685DC/     # Raspberry Pi PCA9685 DC motor control (NEW)
 ```
-
 ## Dependencies
 
-### Required Libraries
-- **Arduino Core**: Standard Arduino libraries
-- **Wire.h**: For I2C communication (PCA9685 examples)
-
-### External Library (for PCA9685)
-- **PCA9685-Arduino by NachtRaveVL**: [Install from Library Manager](https://github.com/NachtRaveVL/PCA9685-Arduino)
+### Raspberry Pi Dependencies
+- **pigpio**: Hardware PWM and I2C control library
+- **build-essential**: C++ compiler and build tools
+- **i2c-tools**: I2C device detection and debugging utilities
 
 ## Installation
 
-1. **Download/Clone** this repository to your Arduino libraries folder
-2. **Install PCA9685 Library** (if using PCA9685 examples):
-   - Open Arduino IDE
-   - Go to `Tools` → `Manage Libraries`
-   - Search for "PCA9685-Arduino by NachtRaveVL"
-   - Click Install
+### Raspberry Pi Installation
+1. **Clone the repository**:
+   ```bash
+   git clone <repository-url>
+   cd PWM_Controller/examples/RaspberryPI*
+   ```
+
+2. **Make Help**
+   ```bash
+   make help
+   ```
