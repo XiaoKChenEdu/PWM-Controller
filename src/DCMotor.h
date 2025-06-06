@@ -2,17 +2,12 @@
 #define DC_MOTOR_H
 
 #include "Motor.h"
+#include <algorithm>
 
-#ifdef ARDUINO
-    #include <Arduino.h>
-#else
-    #include <algorithm>
-    
-    // Arduino-like functions for Raspberry Pi
-    inline float constrain(float x, float a, float b) {
-        return std::max(a, std::min(x, b));
-    }
-#endif
+// Arduino-like functions for Raspberry Pi
+inline float constrain(float x, float a, float b) {
+    return std::max(a, std::min(x, b));
+}
 
 class DCMotor : public Motor {
 private:
@@ -25,13 +20,9 @@ public:
             float maxSpeed = 100.0f,       // Maximum speed percentage
             bool invert = false)           // Invert direction
         : Motor(pwmPin, backend, minSpeed, maxSpeed),
-          invertDirection(invert) {
-        
+        invertDirection(invert) {
         pwmBackend->begin();
         pwmBackend->setPWMFreq(1000);  // 1kHz for DC motors
-        #ifdef ARDUINO
-            pinMode(pin, OUTPUT);
-        #endif
         stop();
     }
 

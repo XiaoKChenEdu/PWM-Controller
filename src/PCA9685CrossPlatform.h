@@ -2,21 +2,15 @@
 #define PCA9685_CROSS_PLATFORM_H
 
 #include "PWMBackend.h"
+#include <pigpio.h>
+#include <cmath>
+#include <stdexcept>
+#include <unistd.h>
 
-#ifdef ARDUINO
-    #include <Arduino.h>
-    #include <Wire.h>
-#else
-    #include <pigpio.h>
-    #include <cmath>
-    #include <stdexcept>
-    #include <unistd.h>
-    
-    // Arduino-like functions for Raspberry Pi
-    inline int constrain(int x, int a, int b) {
-        return std::max(a, std::min(x, b));
-    }
-#endif
+// Arduino-like functions for Raspberry Pi
+inline int constrain(int x, int a, int b) {
+    return std::max(a, std::min(x, b));
+}
 
 // PCA9685 Register definitions
 #define PCA9685_MODE1 0x00
@@ -70,25 +64,20 @@ public:
     }
 
     void begin() override {
-        #ifdef ARDUINO
-            // Arduino I2C initialization should be done externally (Wire.begin())
-            reset();
-            init();
-        #else
-            // Raspberry Pi I2C initialization
-            if (gpioInitialise() < 0) {
-                throw std::runtime_error("Failed to initialize pigpio for PCA9685");
-            }
-            pigpioInitialized = true;
-            
-            i2cHandle = i2cOpen(1, deviceAddress, 0);  // I2C bus 1, device address
-            if (i2cHandle < 0) {
-                throw std::runtime_error("Failed to open I2C connection to PCA9685");
-            }
-            
-            reset();
-            init();
-        #endif
+        // Raspberry Pi I2C initialization
+        if (gpioInitialise() < 0) {
+            throw std::runtime_error("Failed to initialize pigpio for PCA9685");
+        }
+        pigpioInitialized = true;
+        
+        i2cHandle = i2cOpen(1, deviceAddress, 0);  // I2C bus 1, device address
+        if (i2cHandle < 0) {
+            throw std::runtime_error("Failed to open I2C connection to PCA9685");
+        }
+        
+        reset();
+        init();
+
     }
 
     void setPWMFreq(float frequency) override {
@@ -113,11 +102,7 @@ public:
         writeRegister(PCA9685_MODE1, oldMode);
         
         // Wait for oscillator to stabilize
-        #ifdef ARDUINO
-            delay(5);
-        #else
-            usleep(5000);  // 5ms delay
-        #endif
+        usleep(5000);  // 5ms delay
         
         // Restart PWM
         writeRegister(PCA9685_MODE1, oldMode | PCA9685_RESTART);
@@ -187,11 +172,7 @@ private:
     void reset() {
         // Software reset
         writeRegister(PCA9685_MODE1, PCA9685_RESTART);
-        #ifdef ARDUINO
-            delay(10);
-        #else
-            usleep(10000);  // 10ms delay
-        #endif
+        usleep(10000);  // 10ms delay
     }
 
     void init() {
@@ -199,11 +180,7 @@ private:
         writeRegister(PCA9685_MODE1, PCA9685_AI | PCA9685_ALLCALL);
         writeRegister(PCA9685_MODE2, 0x04); // Output logic high when OE high
         
-        #ifdef ARDUINO
-            delay(5);
-        #else
-            usleep(5000);  // 5ms delay
-        #endif
+        usleep(5000);  // 5ms delay
         
         // Set default frequency (50Hz for servos)
         setPWMFreq(50.0f);

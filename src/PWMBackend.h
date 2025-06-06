@@ -1,14 +1,8 @@
 #ifndef PWM_BACKEND_H
 #define PWM_BACKEND_H
 
-// Conditional includes based on platform
-#ifdef ARDUINO
-    #include <Arduino.h>
-#else
-    // For Raspberry Pi and other platforms
-    #include <cstdint>
-    #include <cstddef>
-#endif
+#include <cstdint>
+#include <cstddef>
 
 // Enum for PWM backend types
 enum class PWMBackendType {
