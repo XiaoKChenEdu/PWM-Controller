@@ -11,10 +11,6 @@ PWM_Controller/
 │   ├── ServoMotor.h              # Servo motor implementation
 │   └── DCMotor.h                 # DC motor implementation
 ├── examples/                     # Example sketches/programs
-│   ├── OnboardServo/             # Arduino PWM servo control
-│   ├── OnboardDC/                # Arduino PWM DC motor control
-│   ├── PCA9685Servo/             # Arduino PCA9685 servo control
-│   ├── PCA9685DC/                # Arduino PCA9685 DC motor control
 │   ├── RaspberryPiServo/         # Raspberry Pi hardware PWM servo control
 │   ├── RaspberryPiDC/            # Raspberry Pi hardware PWM DC motor control
 │   ├── RaspberryPiPCA9685Servo/  # Raspberry Pi PCA9685 servo control (NEW)
