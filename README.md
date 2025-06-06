@@ -7,14 +7,14 @@ PWM_Controller/
 ├── src/                          # Library source files
 │   ├── Motor.h                   # Base motor class
 │   ├── PWMBackend.h              # PWM backend interface
-│   ├── RaspberryPiPWM.h          # Raspberry Pi PWM backend (NEW)
+│   ├── RaspberryPiPWM.h          # Raspberry Pi PWM backend
 │   ├── ServoMotor.h              # Servo motor implementation
 │   └── DCMotor.h                 # DC motor implementation
 ├── examples/                     # Example sketches/programs
 │   ├── RaspberryPiServo/         # Raspberry Pi hardware PWM servo control
 │   ├── RaspberryPiDC/            # Raspberry Pi hardware PWM DC motor control
-│   ├── RaspberryPiPCA9685Servo/  # Raspberry Pi PCA9685 servo control (NEW)
-│   └── RaspberryPiPCA9685DC/     # Raspberry Pi PCA9685 DC motor control (NEW)
+│   ├── RaspberryPiPCA9685Servo/  # Raspberry Pi PCA9685 servo control
+│   └── RaspberryPiPCA9685DC/     # Raspberry Pi PCA9685 DC motor control
 ```
 ## Dependencies
 
